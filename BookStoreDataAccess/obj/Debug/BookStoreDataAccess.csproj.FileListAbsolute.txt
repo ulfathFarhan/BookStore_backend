@@ -1,0 +1,12 @@
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\bin\Debug\BookStoreDataAccess.dll.config
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\bin\Debug\BookStoreDataAccess.dll
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\bin\Debug\BookStoreDataAccess.pdb
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\bin\Debug\EntityFramework.dll
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\bin\Debug\EntityFramework.xml
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\obj\Debug\BookStoreDataAccess.csproj.AssemblyReference.cache
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\obj\Debug\BookStoreDataAccess.csproj.CoreCompileInputs.cache
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\obj\Debug\BookStoreDataAccess.csproj.CopyComplete
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\obj\Debug\BookStoreDataAccess.dll
+C:\Users\ufarhan\source\repos\BookStore\BookStoreDataAccess\obj\Debug\BookStoreDataAccess.pdb
