@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="bookStoreDBModel1StoreContainer" CdmEntityContainer="bookStoreDBEntities">
+  <EntityContainerMapping StorageEntityContainer="bookStoreDBModelStoreContainer" CdmEntityContainer="bookStoreDBEntities">
     <EntitySetMapping Name="Books">
-      <EntityTypeMapping TypeName="bookStoreDBModel1.Book">
+      <EntityTypeMapping TypeName="bookStoreDBModel.Book">
         <MappingFragment StoreEntitySet="Books">
           <ScalarProperty Name="BookId" ColumnName="BookId" />
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -18,7 +18,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Categories">
-      <EntityTypeMapping TypeName="bookStoreDBModel1.Category">
+      <EntityTypeMapping TypeName="bookStoreDBModel.Category">
         <MappingFragment StoreEntitySet="Categories">
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -30,17 +30,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="OrderItems">
-      <EntityTypeMapping TypeName="bookStoreDBModel1.OrderItem">
-        <MappingFragment StoreEntitySet="OrderItems">
-          <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
-          <ScalarProperty Name="BookId" ColumnName="BookId" />
-          <ScalarProperty Name="BookPrice" ColumnName="BookPrice" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="bookStoreDBModel1.User">
+      <EntityTypeMapping TypeName="bookStoreDBModel.User">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -49,6 +40,19 @@
           <ScalarProperty Name="address" ColumnName="address" />
           <ScalarProperty Name="phone_no" ColumnName="phone_no" />
           <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderedItems">
+      <EntityTypeMapping TypeName="bookStoreDBModel.OrderedItem">
+        <MappingFragment StoreEntitySet="OrderedItems">
+          <ScalarProperty Name="OrderedItemId" ColumnName="OrderedItemId" />
+          <ScalarProperty Name="BookId" ColumnName="BookId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="BookPrice" ColumnName="BookPrice" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

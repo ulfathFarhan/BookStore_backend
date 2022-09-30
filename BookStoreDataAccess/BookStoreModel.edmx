@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="bookStoreDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="bookStoreDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Books">
           <Key>
             <PropertyRef Name="BookId" />
@@ -18,7 +18,7 @@
           <Property Name="ISBN" Type="char" MaxLength="50" />
           <Property Name="Position" Type="int" />
           <Property Name="remaning_Status" Type="int" />
-          <Property Name="Image" Type="char" MaxLength="50" />
+          <Property Name="Image" Type="char" MaxLength="450" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -27,20 +27,23 @@
           <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryName" Type="char" MaxLength="50" />
           <Property Name="Description" Type="char" MaxLength="350" />
-          <Property Name="Image" Type="char" MaxLength="150" />
+          <Property Name="Image" Type="char" MaxLength="450" />
           <Property Name="Status" Type="int" />
           <Property Name="Position" Type="int" />
           <Property Name="CreatedAt" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="OrderItems">
+warning 6002: The table/view 'bookStoreDB.dbo.OrderedItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OrderedItems">
           <Key>
-            <PropertyRef Name="OrderItemId" />
+            <PropertyRef Name="OrderedItemId" />
           </Key>
-          <Property Name="OrderItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BookId" Type="int" Nullable="false" />
-          <Property Name="BookPrice" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderedItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="BookPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -53,8 +56,9 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
           <Property Name="address" Type="char" MaxLength="50" />
           <Property Name="phone_no" Type="char" MaxLength="50" />
           <Property Name="active" Type="int" />
+          <Property Name="isAdmin" Type="int" />
         </EntityType>
-        <Association Name="FK__Books__CategoryI__5BE2A6F2">
+        <Association Name="FK__Books__CategoryI__7D439ABD">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="Books" Type="Self.Books" Multiplicity="*" />
           <ReferentialConstraint>
@@ -66,21 +70,39 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bookStoreDBModel1StoreContainer">
+        <Association Name="FK__OrderedIt__UserI__7F2BE32F">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="OrderedItems" Type="Self.OrderedItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="OrderedItems">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bookStoreDBModelStoreContainer">
           <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Books__CategoryI__5BE2A6F2" Association="Self.FK__Books__CategoryI__5BE2A6F2">
+          <EntitySet Name="OrderedItems" EntityType="Self.OrderedItems" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <AssociationSet Name="FK__Books__CategoryI__7D439ABD" Association="Self.FK__Books__CategoryI__7D439ABD">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderedIt__UserI__7F2BE32F" Association="Self.FK__OrderedIt__UserI__7F2BE32F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="OrderedItems" EntitySet="OrderedItems" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="bookStoreDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="bookStoreDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="BookId" />
@@ -94,8 +116,8 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
           <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
           <Property Name="Position" Type="Int32" />
           <Property Name="remaning_Status" Type="Int32" />
-          <Property Name="Image" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Books__CategoryI__5BE2A6F2" FromRole="Books" ToRole="Categories" />
+          <Property Name="Image" Type="String" MaxLength="450" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Books__CategoryI__7D439ABD" FromRole="Books" ToRole="Categories" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -104,19 +126,11 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
           <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="350" FixedLength="true" Unicode="false" />
-          <Property Name="Image" Type="String" MaxLength="150" FixedLength="true" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="450" FixedLength="true" Unicode="false" />
           <Property Name="Status" Type="Int32" />
           <Property Name="Position" Type="Int32" />
           <Property Name="CreatedAt" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Books" Relationship="Self.FK__Books__CategoryI__5BE2A6F2" FromRole="Categories" ToRole="Books" />
-        </EntityType>
-        <EntityType Name="OrderItem">
-          <Key>
-            <PropertyRef Name="OrderItemId" />
-          </Key>
-          <Property Name="OrderItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookId" Type="Int32" Nullable="false" />
-          <Property Name="BookPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Self.FK__Books__CategoryI__7D439ABD" FromRole="Categories" ToRole="Books" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -129,8 +143,22 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
           <Property Name="address" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
           <Property Name="phone_no" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
           <Property Name="active" Type="Int32" />
+          <Property Name="isAdmin" Type="Int32" />
+          <NavigationProperty Name="OrderedItems" Relationship="Self.FK__OrderedIt__UserI__7F2BE32F" FromRole="Users" ToRole="OrderedItems" />
         </EntityType>
-        <Association Name="FK__Books__CategoryI__5BE2A6F2">
+        <EntityType Name="OrderedItem">
+          <Key>
+            <PropertyRef Name="OrderedItemId" />
+          </Key>
+          <Property Name="OrderedItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="BookPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="User" Relationship="Self.FK__OrderedIt__UserI__7F2BE32F" FromRole="OrderedItems" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__Books__CategoryI__7D439ABD">
           <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Books" Type="Self.Book" Multiplicity="*" />
           <ReferentialConstraint>
@@ -142,14 +170,30 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__OrderedIt__UserI__7F2BE32F">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="OrderedItems" Type="Self.OrderedItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="OrderedItems">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="bookStoreDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Books" EntityType="Self.Book" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__Books__CategoryI__5BE2A6F2" Association="Self.FK__Books__CategoryI__5BE2A6F2">
+          <EntitySet Name="OrderedItems" EntityType="Self.OrderedItem" />
+          <AssociationSet Name="FK__Books__CategoryI__7D439ABD" Association="Self.FK__Books__CategoryI__7D439ABD">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderedIt__UserI__7F2BE32F" Association="Self.FK__OrderedIt__UserI__7F2BE32F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="OrderedItems" EntitySet="OrderedItems" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -157,9 +201,9 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bookStoreDBModel1StoreContainer" CdmEntityContainer="bookStoreDBEntities">
+        <EntityContainerMapping StorageEntityContainer="bookStoreDBModelStoreContainer" CdmEntityContainer="bookStoreDBEntities">
           <EntitySetMapping Name="Books">
-            <EntityTypeMapping TypeName="bookStoreDBModel1.Book">
+            <EntityTypeMapping TypeName="bookStoreDBModel.Book">
               <MappingFragment StoreEntitySet="Books">
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -175,7 +219,7 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="bookStoreDBModel1.Category">
+            <EntityTypeMapping TypeName="bookStoreDBModel.Category">
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -187,17 +231,8 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrderItems">
-            <EntityTypeMapping TypeName="bookStoreDBModel1.OrderItem">
-              <MappingFragment StoreEntitySet="OrderItems">
-                <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-                <ScalarProperty Name="BookPrice" ColumnName="BookPrice" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="bookStoreDBModel1.User">
+            <EntityTypeMapping TypeName="bookStoreDBModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -206,6 +241,19 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="phone_no" ColumnName="phone_no" />
                 <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderedItems">
+            <EntityTypeMapping TypeName="bookStoreDBModel.OrderedItem">
+              <MappingFragment StoreEntitySet="OrderedItems">
+                <ScalarProperty Name="OrderedItemId" ColumnName="OrderedItemId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="BookPrice" ColumnName="BookPrice" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

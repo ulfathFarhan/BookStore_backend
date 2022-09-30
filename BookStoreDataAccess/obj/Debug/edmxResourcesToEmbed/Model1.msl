@@ -1,19 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="bookStoreDBModelStoreContainer" CdmEntityContainer="bookStoreDBEntities">
-    <EntitySetMapping Name="Admins">
-      <EntityTypeMapping TypeName="IsTypeOf(bookStoreDBModel.Admin)">
-        <MappingFragment StoreEntitySet="Admins">
-          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
-          <ScalarProperty Name="AdminName" ColumnName="AdminName" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="salary" ColumnName="salary" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+  <EntityContainerMapping StorageEntityContainer="bookStoreDBModelStoreContainer" CdmEntityContainer="bookStoreDBEntitiesTwo">
     <EntitySetMapping Name="Books">
-      <EntityTypeMapping TypeName="IsTypeOf(bookStoreDBModel.Book)">
+      <EntityTypeMapping TypeName="bookStoreDBModel.Book">
         <MappingFragment StoreEntitySet="Books">
           <ScalarProperty Name="BookId" ColumnName="BookId" />
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -29,7 +18,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Categories">
-      <EntityTypeMapping TypeName="IsTypeOf(bookStoreDBModel.Category)">
+      <EntityTypeMapping TypeName="bookStoreDBModel.Category">
         <MappingFragment StoreEntitySet="Categories">
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -42,7 +31,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="IsTypeOf(bookStoreDBModel.User)">
+      <EntityTypeMapping TypeName="bookStoreDBModel.User">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -51,15 +40,19 @@
           <ScalarProperty Name="address" ColumnName="address" />
           <ScalarProperty Name="phone_no" ColumnName="phone_no" />
           <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="OrderItems">
-      <EntityTypeMapping TypeName="IsTypeOf(bookStoreDBModel.OrderItem)">
-        <MappingFragment StoreEntitySet="OrderItems">
-          <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
+    <EntitySetMapping Name="OrderedItems">
+      <EntityTypeMapping TypeName="bookStoreDBModel.OrderedItem">
+        <MappingFragment StoreEntitySet="OrderedItems">
+          <ScalarProperty Name="OrderedItemId" ColumnName="OrderedItemId" />
           <ScalarProperty Name="BookId" ColumnName="BookId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
           <ScalarProperty Name="BookPrice" ColumnName="BookPrice" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

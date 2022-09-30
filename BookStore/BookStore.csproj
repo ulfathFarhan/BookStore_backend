@@ -165,7 +165,7 @@
     <Compile Include="BasicAuthenticationAttribute.cs" />
     <Compile Include="Controllers\BoooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OrderItemController.cs" />
+    <Compile Include="Controllers\OrderedItemsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -263,6 +263,9 @@
       <Project>{069d235c-d8d8-405a-a7df-84c854f083fe}</Project>
       <Name>BookStoreDataAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

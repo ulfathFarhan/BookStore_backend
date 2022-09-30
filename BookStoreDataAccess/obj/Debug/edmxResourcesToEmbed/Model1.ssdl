@@ -1,78 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="bookStoreDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="bookStoreDBModelStoreContainer">
-    <EntitySet Name="Admins" EntityType="bookStoreDBModel.Store.Admins" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Books" EntityType="bookStoreDBModel.Store.Books" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Categories" EntityType="bookStoreDBModel.Store.Categories" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Users" EntityType="bookStoreDBModel.Store.Users" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="OrderItems" EntityType="bookStoreDBModel.Store.OrderItems" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK__Books__CategoryI__35BCFE0A" Association="bookStoreDBModel.Store.FK__Books__CategoryI__35BCFE0A">
-      <End Role="Category" EntitySet="Categories" />
-      <End Role="Books" EntitySet="Books" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Admins">
-    <Key>
-      <PropertyRef Name="AdminId" />
-    </Key>
-    <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AdminName" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="email" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="password" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="salary" Type="decimal" Nullable="true" Precision="18" Scale="0" />
-  </EntityType>
+<Schema Namespace="bookStoreDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Books">
     <Key>
       <PropertyRef Name="BookId" />
     </Key>
     <Property Name="BookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CategoryId" Type="int" Nullable="true" />
-    <Property Name="Title" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="Description" Type="char" Nullable="true" MaxLength="450" />
-    <Property Name="Year" Type="int" Nullable="true" />
-    <Property Name="Price" Type="decimal" Nullable="true" Precision="18" Scale="0" />
-    <Property Name="ISBN" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="Position" Type="int" Nullable="true" />
-    <Property Name="remaning_Status" Type="int" Nullable="true" />
-    <Property Name="Image" Type="char" Nullable="true" MaxLength="50" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="Title" Type="char" MaxLength="50" />
+    <Property Name="Description" Type="char" MaxLength="450" />
+    <Property Name="Year" Type="int" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ISBN" Type="char" MaxLength="50" />
+    <Property Name="Position" Type="int" />
+    <Property Name="remaning_Status" Type="int" />
+    <Property Name="Image" Type="char" MaxLength="450" />
   </EntityType>
   <EntityType Name="Categories">
     <Key>
       <PropertyRef Name="CategoryId" />
     </Key>
     <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CategoryName" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="Description" Type="char" Nullable="true" MaxLength="350" />
-    <Property Name="Image" Type="char" Nullable="true" MaxLength="150" />
-    <Property Name="Status" Type="int" Nullable="true" />
-    <Property Name="Position" Type="int" Nullable="true" />
-    <Property Name="CreatedAt" Type="datetime" Nullable="true" />
+    <Property Name="CategoryName" Type="char" MaxLength="50" />
+    <Property Name="Description" Type="char" MaxLength="350" />
+    <Property Name="Image" Type="char" MaxLength="450" />
+    <Property Name="Status" Type="int" />
+    <Property Name="Position" Type="int" />
+    <Property Name="CreatedAt" Type="date" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'bookStoreDB.dbo.OrderedItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="OrderedItems">
+    <Key>
+      <PropertyRef Name="OrderedItemId" />
+    </Key>
+    <Property Name="OrderedItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookId" Type="int" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="BookPrice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserId" />
     </Key>
     <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserName" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="email" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="password" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="address" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="phone_no" Type="char" Nullable="true" MaxLength="50" />
-    <Property Name="active" Type="int" Nullable="true" />
+    <Property Name="UserName" Type="char" MaxLength="50" />
+    <Property Name="email" Type="char" MaxLength="50" />
+    <Property Name="password" Type="char" MaxLength="50" />
+    <Property Name="address" Type="char" MaxLength="50" />
+    <Property Name="phone_no" Type="char" MaxLength="50" />
+    <Property Name="active" Type="int" />
+    <Property Name="isAdmin" Type="int" />
   </EntityType>
-  <EntityType Name="OrderItems">
-    <Key>
-      <PropertyRef Name="OrderItemId" />
-    </Key>
-    <Property Name="OrderItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="BookId" Type="int" Nullable="false" />
-    <Property Name="BookPrice" Type="nvarchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <Association Name="FK__Books__CategoryI__35BCFE0A">
-    <End Role="Category" Type="bookStoreDBModel.Store.Categories" Multiplicity="0..1" />
-    <End Role="Books" Type="bookStoreDBModel.Store.Books" Multiplicity="*" />
+  <Association Name="FK__Books__CategoryI__7D439ABD">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+    <End Role="Books" Type="Self.Books" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Category">
+      <Principal Role="Categories">
         <PropertyRef Name="CategoryId" />
       </Principal>
       <Dependent Role="Books">
@@ -80,4 +65,39 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__OrderedIt__UserI__7F2BE32F">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="OrderedItems" Type="Self.OrderedItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="OrderedItems">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="bookStoreDBModelStoreContainer">
+    <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderedItems" EntityType="Self.OrderedItems" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [OrderedItems].[OrderedItemId] AS [OrderedItemId], 
+    [OrderedItems].[BookId] AS [BookId], 
+    [OrderedItems].[UserId] AS [UserId], 
+    [OrderedItems].[quantity] AS [quantity], 
+    [OrderedItems].[BookPrice] AS [BookPrice], 
+    [OrderedItems].[TotalPrice] AS [TotalPrice]
+    FROM [dbo].[OrderedItems] AS [OrderedItems]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Books__CategoryI__7D439ABD" Association="Self.FK__Books__CategoryI__7D439ABD">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderedIt__UserI__7F2BE32F" Association="Self.FK__OrderedIt__UserI__7F2BE32F">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="OrderedItems" EntitySet="OrderedItems" />
+    </AssociationSet>
+  </EntityContainer>
 </Schema>

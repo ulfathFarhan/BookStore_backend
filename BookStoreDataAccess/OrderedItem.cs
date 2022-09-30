@@ -12,10 +12,15 @@ namespace BookStoreDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderItem
+    public partial class OrderedItem
     {
-        public int OrderItemId { get; set; }
-        public int BookId { get; set; }
-        public string BookPrice { get; set; }
+        public int OrderedItemId { get; set; }
+        public Nullable<int> BookId { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<int> quantity { get; set; }
+        public Nullable<decimal> BookPrice { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

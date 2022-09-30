@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="bookStoreDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="bookStoreDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Book">
     <Key>
       <PropertyRef Name="BookId" />
@@ -13,8 +13,8 @@
     <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="Position" Type="Int32" />
     <Property Name="remaning_Status" Type="Int32" />
-    <Property Name="Image" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
-    <NavigationProperty Name="Category" Relationship="Self.FK__Books__CategoryI__5BE2A6F2" FromRole="Books" ToRole="Categories" />
+    <Property Name="Image" Type="String" MaxLength="450" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Books__CategoryI__7D439ABD" FromRole="Books" ToRole="Categories" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -23,19 +23,11 @@
     <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="Description" Type="String" MaxLength="350" FixedLength="true" Unicode="false" />
-    <Property Name="Image" Type="String" MaxLength="150" FixedLength="true" Unicode="false" />
+    <Property Name="Image" Type="String" MaxLength="450" FixedLength="true" Unicode="false" />
     <Property Name="Status" Type="Int32" />
     <Property Name="Position" Type="Int32" />
     <Property Name="CreatedAt" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="Books" Relationship="Self.FK__Books__CategoryI__5BE2A6F2" FromRole="Categories" ToRole="Books" />
-  </EntityType>
-  <EntityType Name="OrderItem">
-    <Key>
-      <PropertyRef Name="OrderItemId" />
-    </Key>
-    <Property Name="OrderItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="BookId" Type="Int32" Nullable="false" />
-    <Property Name="BookPrice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Books__CategoryI__7D439ABD" FromRole="Categories" ToRole="Books" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -48,8 +40,22 @@
     <Property Name="address" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="phone_no" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
     <Property Name="active" Type="Int32" />
+    <Property Name="isAdmin" Type="Int32" />
+    <NavigationProperty Name="OrderedItems" Relationship="Self.FK__OrderedIt__UserI__7F2BE32F" FromRole="Users" ToRole="OrderedItems" />
   </EntityType>
-  <Association Name="FK__Books__CategoryI__5BE2A6F2">
+  <EntityType Name="OrderedItem">
+    <Key>
+      <PropertyRef Name="OrderedItemId" />
+    </Key>
+    <Property Name="OrderedItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="BookPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="User" Relationship="Self.FK__OrderedIt__UserI__7F2BE32F" FromRole="OrderedItems" ToRole="Users" />
+  </EntityType>
+  <Association Name="FK__Books__CategoryI__7D439ABD">
     <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Books" Type="Self.Book" Multiplicity="*" />
     <ReferentialConstraint>
@@ -61,14 +67,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__OrderedIt__UserI__7F2BE32F">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="OrderedItems" Type="Self.OrderedItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="OrderedItems">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="bookStoreDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Books" EntityType="Self.Book" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
-    <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
     <EntitySet Name="Users" EntityType="Self.User" />
-    <AssociationSet Name="FK__Books__CategoryI__5BE2A6F2" Association="Self.FK__Books__CategoryI__5BE2A6F2">
+    <EntitySet Name="OrderedItems" EntityType="Self.OrderedItem" />
+    <AssociationSet Name="FK__Books__CategoryI__7D439ABD" Association="Self.FK__Books__CategoryI__7D439ABD">
       <End Role="Categories" EntitySet="Categories" />
       <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderedIt__UserI__7F2BE32F" Association="Self.FK__OrderedIt__UserI__7F2BE32F">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="OrderedItems" EntitySet="OrderedItems" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

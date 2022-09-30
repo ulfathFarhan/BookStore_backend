@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="bookStoreDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="bookStoreDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Books">
     <Key>
       <PropertyRef Name="BookId" />
@@ -13,7 +13,7 @@
     <Property Name="ISBN" Type="char" MaxLength="50" />
     <Property Name="Position" Type="int" />
     <Property Name="remaning_Status" Type="int" />
-    <Property Name="Image" Type="char" MaxLength="50" />
+    <Property Name="Image" Type="char" MaxLength="450" />
   </EntityType>
   <EntityType Name="Categories">
     <Key>
@@ -22,20 +22,23 @@
     <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CategoryName" Type="char" MaxLength="50" />
     <Property Name="Description" Type="char" MaxLength="350" />
-    <Property Name="Image" Type="char" MaxLength="150" />
+    <Property Name="Image" Type="char" MaxLength="450" />
     <Property Name="Status" Type="int" />
     <Property Name="Position" Type="int" />
     <Property Name="CreatedAt" Type="date" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="OrderItems">
+warning 6002: The table/view 'bookStoreDB.dbo.OrderedItems' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="OrderedItems">
     <Key>
-      <PropertyRef Name="OrderItemId" />
+      <PropertyRef Name="OrderedItemId" />
     </Key>
-    <Property Name="OrderItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="BookId" Type="int" Nullable="false" />
-    <Property Name="BookPrice" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OrderedItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookId" Type="int" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="BookPrice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -48,8 +51,9 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
     <Property Name="address" Type="char" MaxLength="50" />
     <Property Name="phone_no" Type="char" MaxLength="50" />
     <Property Name="active" Type="int" />
+    <Property Name="isAdmin" Type="int" />
   </EntityType>
-  <Association Name="FK__Books__CategoryI__5BE2A6F2">
+  <Association Name="FK__Books__CategoryI__7D439ABD">
     <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
     <End Role="Books" Type="Self.Books" Multiplicity="*" />
     <ReferentialConstraint>
@@ -61,14 +65,30 @@ warning 6002: The table/view 'bookStoreDB.dbo.OrderItem' does not have a primary
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="bookStoreDBModel1StoreContainer">
+  <Association Name="FK__OrderedIt__UserI__7F2BE32F">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="OrderedItems" Type="Self.OrderedItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="OrderedItems">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="bookStoreDBModelStoreContainer">
     <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Books__CategoryI__5BE2A6F2" Association="Self.FK__Books__CategoryI__5BE2A6F2">
+    <EntitySet Name="OrderedItems" EntityType="Self.OrderedItems" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__Books__CategoryI__7D439ABD" Association="Self.FK__Books__CategoryI__7D439ABD">
       <End Role="Categories" EntitySet="Categories" />
       <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderedIt__UserI__7F2BE32F" Association="Self.FK__OrderedIt__UserI__7F2BE32F">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="OrderedItems" EntitySet="OrderedItems" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
