@@ -90,3 +90,10 @@ C:\Users\ufarhan\source\repos\BookStore\BookStore\obj\Debug\BookStore.csproj.Cor
 C:\Users\ufarhan\source\repos\BookStore\BookStore\obj\Debug\BookStore.csproj.CopyComplete
 C:\Users\ufarhan\source\repos\BookStore\BookStore\obj\Debug\BookStore.dll
 C:\Users\ufarhan\source\repos\BookStore\BookStore\obj\Debug\BookStore.pdb
+C:\Users\ufarhan\source\repos\BookStore\BookStore\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\ufarhan\source\repos\BookStore\BookStore\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\ufarhan\source\repos\BookStore\BookStore\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\ufarhan\source\repos\BookStore\BookStore\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\ufarhan\source\repos\BookStore\BookStore\bin\System.Web.Cors.dll
+C:\Users\ufarhan\source\repos\BookStore\BookStore\bin\System.Web.Http.Cors.dll
+C:\Users\ufarhan\source\repos\BookStore\BookStore\bin\System.Web.Http.Cors.xml

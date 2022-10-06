@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace BookStore
 {
@@ -11,7 +12,7 @@ namespace BookStore
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+     
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -20,6 +21,8 @@ namespace BookStore
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            var corsAttr = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(corsAttr);
             // Serializing the Data to Json Format
             var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
             json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
@@ -27,6 +30,7 @@ namespace BookStore
             //for indentation the raw datas
             config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+          
 
         }
     }

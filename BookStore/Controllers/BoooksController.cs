@@ -24,6 +24,26 @@ namespace BookStore.Controllers
                 return entities.Books.ToList();
             }
         }
+        [HttpGet]
+        [Route("{id:int}", Name = "BookById")]
+
+        public HttpResponseMessage BookById(int id)
+        {
+            using (bookStoreDBEntities entities = new bookStoreDBEntities())
+            {
+                var entity = entities.Books.FirstOrDefault(b=> b.BookId == id);
+                if (entity != null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, entity);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Book with Id = " + id.ToString() + " is not found");
+                }
+            }
+        }
+
+
         [Route("name/{name}")]
         [HttpGet]
         public HttpResponseMessage BookByName(string name)

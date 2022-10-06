@@ -42,6 +42,8 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
+        [Route("{register}", Name = "register")]
+
         public HttpResponseMessage Post([FromBody] User user)
         {
             try
