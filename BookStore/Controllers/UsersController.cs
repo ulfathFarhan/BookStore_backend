@@ -42,7 +42,30 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        [Route("{register}", Name = "register")]
+        [Route("login", Name = "login")]
+
+        public HttpResponseMessage login([FromBody] User user)
+        {
+            using (bookStoreDBEntities entities = new bookStoreDBEntities())
+            {
+                var entity = entities.Users.FirstOrDefault(u => u.email == user.email && u.password == user.password);
+                User result = new User();
+              
+           
+                if (entity != null)
+                {
+                    result.UserId = entity.UserId; result.UserName = entity.UserName;
+                    return Request.CreateResponse(HttpStatusCode.OK, result);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User is not registered Yet");
+                }
+            }
+        }
+
+        [HttpPost]
+        [Route("register", Name = "register")]
 
         public HttpResponseMessage Post([FromBody] User user)
         {

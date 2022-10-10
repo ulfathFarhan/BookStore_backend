@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace BookStore
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            var corsAttr = new EnableCorsAttribute("*", "*", "*");
+           var corsAttr = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(corsAttr);
             // Serializing the Data to Json Format
             var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;

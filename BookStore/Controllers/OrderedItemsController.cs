@@ -41,7 +41,7 @@ namespace BookStore.Controllers
                 }
             }
         }
-        [Authorize]
+        [BasicAuthentication]
         [HttpPost]
         public HttpResponseMessage Post([FromBody] List<OrderedItem> listOfItems)
         {
